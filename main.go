@@ -8,7 +8,7 @@ import (
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Handling %+v\n", r)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("Hello world updated !"))
+	w.Write([]byte("Hello world!"))
 }
 
 func main() {
