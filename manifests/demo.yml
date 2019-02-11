@@ -32,6 +32,7 @@ spec:
       containers:
       - name: primary
         image: vuchauthanh/helloworld
+        imagePullPolicy: Always
         ports:
         - containerPort: 8000
         readinessProbe:
