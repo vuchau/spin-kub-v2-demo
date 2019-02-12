@@ -14,8 +14,8 @@ pipeline {
     }
     stage('Unittest') {
         steps {
-            sh 'docker build -t registry -f Dockerfile.dev .'
-            sh 'docker run registry go test --cover'
+            sh 'docker build -t vuchauthanh/helloworld -f Dockerfile.dev .'
+            sh 'docker run vuchauthanh/helloworld go test --cover'
         }
     }
     
