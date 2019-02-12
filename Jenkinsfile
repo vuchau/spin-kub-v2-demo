@@ -5,9 +5,7 @@ node {
       def dockerImage
       def golangVersion = '1.11.4'
     stage('Clone repository') {
-      steps {
           checkout scm
-        }
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
@@ -17,24 +15,23 @@ node {
       }
     }
     stage('Building image') {
-      steps{
-        script {
-          dockerImage = docker.build registry + ":$BUILD_NUMBER"
-        }
+      script {
+        dockerImage = docker.build registry + ":$BUILD_NUMBER"
       }
+      
     }
     stage('Deploy Image') {
-      steps{
-         script {
-            docker.withRegistry( '', registryCredential ) {
-            dockerImage.push()
-          }
+      
+        script {
+          docker.withRegistry( '', registryCredential ) {
+          dockerImage.push()
         }
       }
+      
     }
     stage('Remove Unused docker image') {
-      steps{
+      
         sh "docker rmi $registry:$BUILD_NUMBER"
-      }
+      
     }   
 }
