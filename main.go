@@ -8,7 +8,7 @@ import (
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Handling %+v\n", r)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(" Hello world, updated docker trigger!"))
+	w.Write([]byte(" Hello world, updated docker trigger 12347890 dev1!"))
 }
 
 func main() {
