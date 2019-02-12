@@ -13,13 +13,12 @@ pipeline {
         }
     }
     stage('Unittest') {
-        def dockerfile = 'Dockerfile.dev'
-        def testImage = docker.build(registry, '-f ${dockerfile} .')
+        dockerfile = 'Dockerfile.dev'
+        testImage = docker.build(registry, '-f ${dockerfile} .')
         testImage.inside {
-        sh 'go test --cover'
+          sh 'go test --cover'
+      }
     }
-    }
-    
     stage('Building image') {
       steps{
         script {
