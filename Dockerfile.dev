@@ -3,8 +3,7 @@
 ARG GO_VERSION=1.11.4
 
 # First stage: build the executable.
-FROM golang:${GO_VERSION}-alpine
-
+FROM golang:1.11.4-alpine
 # Install the Certificate-Authority certificates for the app to be able to make
 # calls to HTTPS endpoints.
 RUN apk add --no-cache ca-certificates git
