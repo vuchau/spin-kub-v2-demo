@@ -1,11 +1,13 @@
 pipeline {
+    agent any
     environment {
         registry = "vuchauthanh/helloworld"
         registryCredential = 'dockerhub'
         dockerImage = ''
         golangVersion = '1.11.4'
     }
-    stage('Clone repository') {
+    stages {
+        stage('Clone repository') {
         steps {
             checkout scm
         }
@@ -38,4 +40,5 @@ pipeline {
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }   
+    }
 }
