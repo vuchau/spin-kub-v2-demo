@@ -4,8 +4,6 @@ node {
       def registryCredential = 'dockerhub'
       def dockerImage
       def golangVersion = '1.11.4'
-    }
-    
     stage('Clone repository') {
       steps {
           checkout scm
