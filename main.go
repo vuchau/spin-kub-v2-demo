@@ -5,6 +5,10 @@ import (
 	"net/http"
 )
 
+func Sum(x int, y int) int {
+    return x + y
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Handling %+v\n", r)
 	w.WriteHeader(http.StatusOK)
