@@ -1,20 +1,19 @@
-pipeline {
-    agent any
-    environment {
-        registry = "vuchauthanh/helloworld"
-        registryCredential = 'dockerhub'
-        dockerImage = ''
-        golangVersion = '1.11.4'
+node {
+    
+      def registry = "vuchauthanh/helloworld"
+      def registryCredential = 'dockerhub'
+      def dockerImage
+      def golangVersion = '1.11.4'
     }
-    stages {
-        stage('Clone repository') {
-        steps {
-            checkout scm
+    
+    stage('Clone repository') {
+      steps {
+          checkout scm
         }
     }
     stage('Unittest') {
-        dockerfile = 'Dockerfile.dev'
-        testImage = docker.build(registry, '-f ${dockerfile} .')
+        def dockerfile = 'Dockerfile.dev'
+        def testImage = docker.build(registry, '-f ${dockerfile} .')
         testImage.inside {
           sh 'go test --cover'
       }
@@ -40,5 +39,4 @@ pipeline {
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }   
-    }
 }
