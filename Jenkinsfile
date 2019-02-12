@@ -13,10 +13,11 @@ pipeline {
         }
     }
     stage('Unittest') {
-        steps {
-            sh 'docker build -t vuchauthanh/helloworld -f Dockerfile.dev .'
-            sh 'docker run vuchauthanh/helloworld go test --cover'
-        }
+        def dockerfile = 'Dockerfile.dev'
+        def testImage = docker.build(registry, '-f ${dockerfile} .')
+        testImage.inside {
+        sh 'go test --cover'
+    }
     }
     
     stage('Building image') {
