@@ -9,7 +9,7 @@ node {
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
-        def testImage = docker.build(registry, '-f ${dockerfile} .')
+        def testImage = docker.build(registry, "-f ${dockerfile} .")
         testImage.inside {
           sh 'go test --cover'
       }
@@ -21,9 +21,8 @@ node {
       
     }
     stage('Deploy Image') {
-      
         script {
-          docker.withRegistry( '', registryCredential ) {
+          docker.withRegistry('', registryCredential ) {
           dockerImage.push()
         }
       }
