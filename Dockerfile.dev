@@ -6,7 +6,7 @@ ARG GO_VERSION=1.11.4
 FROM golang:1.11.4-alpine
 # Install the Certificate-Authority certificates for the app to be able to make
 # calls to HTTPS endpoints.
-RUN apk add --no-cache ca-certificates git
+RUN apk add --no-cache bash git netcat-openbsd libc6-compat gcc musl-dev
 
 # Set the environment variables for the go command:
 ENV GOFLAGS=-mod=vendor GOOS=linux GOARCH=amd64
