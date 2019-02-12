@@ -22,7 +22,7 @@ COPY ./ ./
 RUN go build -installsuffix 'static' -o /hello .
 
 # Final stage: the running container.
-FROM scratch AS final
+FROM scratch
 
 # Import the Certificate-Authority certificates for enabling HTTPS.
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/

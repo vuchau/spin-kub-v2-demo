@@ -18,7 +18,6 @@ node {
       script {
         dockerImage = docker.build registry + ":$BUILD_NUMBER"
       }
-      
     }
     stage('Deploy Image') {
         script {
@@ -26,11 +25,8 @@ node {
           dockerImage.push()
         }
       }
-      
     }
-    stage('Remove Unused docker image') {
-      
+    stage('Remove Unused docker image') {      
         sh "docker rmi $registry:$BUILD_NUMBER"
-      
     }   
 }
