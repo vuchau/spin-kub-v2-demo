@@ -14,6 +14,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 func main() {
 	http.HandleFunc("/", index)
 	port := ":8000"
-	fmt.Printf(" Starting to service on port %s\n", port)
+	fmt.Printf("Starting to service on port %s\n", port)
 	http.ListenAndServe(port, nil)
 }
