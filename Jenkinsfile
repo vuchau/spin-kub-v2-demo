@@ -19,7 +19,7 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + ":$tag"
+        dockerImage = docker.build registry + ":${branchName}"
       }
     }
     stage('Deploy Image') {
@@ -30,6 +30,6 @@ node {
       }
     }
     stage('Remove Unused docker image') {      
-        sh "docker rmi $registry:$tag"
+        sh "docker rmi $registry:${branchName}"
     }   
 }
