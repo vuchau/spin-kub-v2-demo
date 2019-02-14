@@ -4,14 +4,13 @@ node {
       def registryCredential = 'dockerhub'
       def dockerImage
       def golangVersion = '1.11.4'
+      def branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
     stage('Clone repository') {
           checkout scm
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
         def testImage = docker.build(registry, "-f ${dockerfile} .")
-        def tag     = params.branchName
-        
         testImage.inside {
           sh 'go test --cover'
 
@@ -19,7 +18,7 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + ":${branchName}"
+        dockerImage = docker.build registry + ":$branch"
       }
     }
     stage('Deploy Image') {
@@ -29,8 +28,8 @@ node {
         }
       }
     }
-    
+
     stage('Remove Unused docker image') {      
-        sh "docker rmi $registry:${branchName}"
+        sh "docker rmi $registry:$branch"
     }   
 }
