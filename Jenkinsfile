@@ -16,7 +16,7 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        dockerImage = docker.build registry + ":$BRANCH_NAME"
       }
     }
     stage('Deploy Image') {
@@ -27,6 +27,6 @@ node {
       }
     }
     stage('Remove Unused docker image') {      
-        sh "docker rmi $registry:$BUILD_NUMBER"
+        sh "docker rmi $registry:$BRANCH_NAME"
     }   
 }
