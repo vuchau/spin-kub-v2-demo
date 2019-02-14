@@ -6,7 +6,8 @@ import (
 )
 
 func Sum(x int, y int) int {
-    return x + y
+	return x + y
+
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
