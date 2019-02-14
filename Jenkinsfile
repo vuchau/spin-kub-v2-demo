@@ -7,7 +7,7 @@ node {
       def branch
     stage('Clone repository') {
           checkout scm
-          branch = sh(script: 'git name-rev --name-only HEAD', returnStdout: true)
+          branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
@@ -18,7 +18,7 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + branch
+        dockerImage = docker.build registry + ":$branch"
       }
     }
     stage('Deploy Image') {
