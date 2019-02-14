@@ -14,7 +14,6 @@ node {
         def testImage = docker.build(registry, "-f ${dockerfile} .")
         testImage.inside {
           sh 'go test --cover'
-
       }
     }
     stage('Building image') {
