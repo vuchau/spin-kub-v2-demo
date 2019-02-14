@@ -10,7 +10,7 @@ node {
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
         def testImage = docker.build(registry, "-f ${dockerfile} .")
-        sh 'echo "check branch_name: $BRANCH_NAME"'
+        sh 'printenv'
         testImage.inside {
           sh 'go test --cover'
 
