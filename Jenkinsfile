@@ -10,8 +10,9 @@ node {
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
         def testImage = docker.build(registry, "-f ${dockerfile} .")
-        sh 'echo "$branchName"'
-        scm.branches[0].name
+        sh 'env'
+        sh 'printenv'
+        scm.branches
         testImage.inside {
           sh 'go test --cover'
 
