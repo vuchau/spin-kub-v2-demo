@@ -6,7 +6,8 @@ node {
       def golangVersion = '1.11.4'
       def branch = 'dev'
     stage('Clone repository') {
-          checkout scm
+          //checkout scm
+          checkoutt[$class: 'LocalBranch', localBranch: "**"]
           sh 'printenv'
           //branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
     }
