@@ -7,7 +7,7 @@ node {
       def branch = 'dev'
     stage('Clone repository') {
           //checkout scm
-          checkoutt[$class: 'LocalBranch', localBranch: "**"]
+          checkoutt[$class: 'LocalBranch', localBranch: "**"] scm
           sh 'printenv'
           //branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
     }
