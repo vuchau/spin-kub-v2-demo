@@ -29,6 +29,7 @@ node {
         }
       }
     }
+    
     stage('Remove Unused docker image') {      
         sh "docker rmi $registry:${branchName}"
     }   
