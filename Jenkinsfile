@@ -10,9 +10,8 @@ node {
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
         def testImage = docker.build(registry, "-f ${dockerfile} .")
-        sh 'env'
-        sh 'printenv'
-        scm.branches
+        def tag     = params.branchName
+        
         testImage.inside {
           sh 'go test --cover'
 
@@ -20,7 +19,7 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + ":$BRANCH_NAME"
+        dockerImage = docker.build registry + ":$tag"
       }
     }
     stage('Deploy Image') {
@@ -31,6 +30,6 @@ node {
       }
     }
     stage('Remove Unused docker image') {      
-        sh "docker rmi $registry:$BRANCH_NAME"
+        sh "docker rmi $registry:$tag"
     }   
 }
