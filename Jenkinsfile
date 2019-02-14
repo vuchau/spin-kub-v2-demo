@@ -11,7 +11,9 @@ node {
         def dockerfile = 'Dockerfile.dev'
         def testImage = docker.build(registry, "-f ${dockerfile} .")
         testImage.inside {
+          sh "echo check branch_name: $BRANCH_NAME"
           sh 'go test --cover'
+
       }
     }
     stage('Building image') {
