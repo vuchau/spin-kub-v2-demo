@@ -4,10 +4,10 @@ node {
       def registryCredential = 'dockerhub'
       def dockerImage
       def golangVersion = '1.11.4'
-      def branch = 'dev'
+      def branch
     stage('Clone repository') {
           checkout scm
-          branch = sh(script: 'rev=$(git name-rev --name-only HEAD)', returnStdout: true)
+          branch = sh(script: 'git name-rev --name-only HEAD', returnStdout: true)
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
