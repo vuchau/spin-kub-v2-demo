@@ -12,7 +12,6 @@ node {
           //BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/|g'", returnStdout: true)
           env.BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | xargs", returnStdout: true)
           sh "env"
-          sh "echo haha branch ${env.BRANCH_NAME}"
     }
     stage('Unittest') {
         def dockerfile = 'Dockerfile.dev'
@@ -23,13 +22,13 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry + ":${env.BRANCH_NAME}"
+        dockerImage = docker.build registry //+ ":${env.BRANCH_NAME}"
       }
     }
     stage('Deploy Image') {
         script {
           docker.withRegistry('', registryCredential ) {
-          dockerImage.push()
+          dockerImage.push(env.BRANCH_NAME)
         }
       }
     }
