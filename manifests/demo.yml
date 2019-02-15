@@ -1,36 +1,31 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: spinnaker-demo-config
+  name: helloworld-config
   namespace: default
 data:
   NEW_FEATURE: "true"
-
 ---
 
 apiVersion: apps/v1beta2
 kind: Deployment
 metadata:
-  name: spinnaker-demo
+  name: helloworld
   namespace: default
   labels:
-    source: demo
-    stack: frontend
-    app: spinnaker
+    app: helloworld
 spec:
   replicas: 1
   selector:
     matchLabels:
-      source: demo
-      app: spinnaker
+      app: helloworld
   template:
     metadata:
       labels:
-        source: demo
-        app: spinnaker
+        app: helloworld
     spec:
       containers:
-      - name: primary
+      - name: helloworld
         image: vuchauthanh/helloworld
         imagePullPolicy: Always
         ports:
@@ -41,19 +36,18 @@ spec:
             port: 8000
         envFrom:
         - configMapRef:
-            name: spinnaker-demo-config
+            name: helloworld-config
 
 ---
 
 kind: Service
 apiVersion: v1
 metadata:
-  name: spinnaker-demo
+  name: helloworld
   namespace: default
 spec:
   selector:
-    source: demo
-    app: spinnaker
+    app: helloworld
   type: LoadBalancer
   ports:
   - protocol: TCP
