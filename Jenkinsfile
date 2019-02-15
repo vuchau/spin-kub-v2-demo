@@ -7,11 +7,14 @@ node {
       def imageTag
 
     stage('Clone repository') {
+          
           checkout scm
-          // Get current branch name
+          /* Get current branch name
+          Remove prefix and newline
+          */
           BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | tr -d '\n'", returnStdout: true)          
           env.BRANCH_NAME = BRANCH_NAME
-          env.IMAGE_TAG = "$BRANCH_NAME-${env.BUILD_NUMBER}"
+          env.IMAGE_TAG = "$BRANCH_NAME.${env.BUILD_NUMBER}"
           sh "env"
     }
     stage('Unittest') {
