@@ -3,13 +3,11 @@ node {
       def registry = "vuchauthanh/helloworld"
       def registryCredential = 'dockerhub'
       def dockerImage
-      def golangVersion = '1.11.4'
-      def BRANCH_NAME = 'dev'
+      def BRANCH_NAME
 
     stage('Clone repository') {
           checkout scm
           // Get current branch name
-          //BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/|g'", returnStdout: true)
           env.BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | xargs", returnStdout: true)
           sh "env"
     }
@@ -22,13 +20,14 @@ node {
     }
     stage('Building image') {
       script {
-        dockerImage = docker.build registry //+ ":${env.BRANCH_NAME}"
+        dockerImage = docker.build registry
       }
     }
     stage('Deploy Image') {
         script {
           docker.withRegistry('', registryCredential ) {
-          dockerImage.push(env.BRANCH_NAME)
+          dockerImage.push()
+          dockerImage.push(env.BRANCH_NAME)          
         }
       }
     }
