@@ -4,10 +4,11 @@ node {
       def registryCredential = 'dockerhub'
       def dockerImage
       def golangVersion = '1.11.4'
-      def BRANCH_NAME = 'dev'
+      def BRANCH_NAME
 
     stage('Clone repository') {
           checkout scm
+          // Get current branch name
           BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g'", returnStdout: true)
           
     }
@@ -19,6 +20,7 @@ node {
       }
     }
     stage('Building image') {
+      sh 'printenv'
       script {
         dockerImage = docker.build registry + ":$BRANCH_NAME"
       }
@@ -30,8 +32,4 @@ node {
         }
       }
     }
-
-    stage('Remove Unused docker image') {      
-        sh "docker rmi $registry:$BRANCH_NAME"
-    }   
 }
