@@ -4,12 +4,12 @@ node {
       def registryCredential = 'dockerhub'
       def dockerImage
       def golangVersion = '1.11.4'
-      def BRANCH_NAME
+      def BRANCH_NAME = 'dev'
 
     stage('Clone repository') {
           checkout scm
           // Get current branch name
-          BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g'", returnStdout: true)
+          //BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g'", returnStdout: true)
           
     }
     stage('Unittest') {
