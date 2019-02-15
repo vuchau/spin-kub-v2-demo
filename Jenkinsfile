@@ -5,6 +5,7 @@ node {
       def dockerImage
       def BRANCH_NAME
       def imageTag
+      def buildProp
 
     stage('Clone repository') {
           
@@ -15,7 +16,8 @@ node {
           BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | tr -d '\n'", returnStdout: true)          
           env.BRANCH_NAME = BRANCH_NAME
           env.IMAGE_TAG = "$BRANCH_NAME.${env.BUILD_NUMBER}"
-          sh "env"
+          buildProp = readProperties file: 'build.properties'
+          echo """The version name ${buildProp['version']}"""
     }
     stage('Unittest') {
         // Build images for run unittest
