@@ -10,7 +10,7 @@ node {
           checkout scm
           // Get current branch name
           //BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/|g'", returnStdout: true)
-          env.BRANCH_NAME = sh(script: "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | xargs", returnStdout: true)
+          env.BRANCH_NAME = sh "git name-rev --name-only HEAD | sed -e 's|remotes/origin/||g' | xargs"
           sh "echo haha branch ${env.BRANCH_NAME}"
     }
     stage('Unittest') {
