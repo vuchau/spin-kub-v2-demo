@@ -26,7 +26,7 @@ node {
       //   dockerImage = docker.build registry + ":$BRANCH_NAME"
       // }
       registry = registry + ":${env.BRANCH_NAME}"
-      dockerImage = docker.build(registry, ".")
+      dockerImage = docker.build(registry, '-f Dockerfile .')
     }
     stage('Deploy Image') {
         script {
