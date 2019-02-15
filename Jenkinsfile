@@ -45,4 +45,9 @@ node {
         }
       }
     }
+    post {
+        always {
+            archiveArtifacts artifacts: 'build.properties', onlyIfSuccessful: true
+        }
+    }
 }
