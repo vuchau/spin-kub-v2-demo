@@ -40,7 +40,7 @@ node {
             * First, the incremental build number from Jenkins
             * Second, the 'latest' tag.
             * Pushing multiple tags is cheap, as all the layers are reused. */
-            dockerImage.push(env.IMAGE_TAG)          
+            dockerImage.push(${buildProp['version']})          
             dockerImage.push("latest")
         }
       }
