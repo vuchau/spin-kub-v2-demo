@@ -20,7 +20,7 @@ node {
       }
     }
     stage('Building image') {
-      sh 'printenv'
+      
       // script {
       //   dockerImage = docker.build registry + ":$BRANCH_NAME"
       // }
