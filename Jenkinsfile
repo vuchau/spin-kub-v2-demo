@@ -44,10 +44,6 @@ node {
             dockerImage.push("latest")
         }
       }
-    }
-    post {
-        always {
-            archiveArtifacts artifacts: 'build.properties', onlyIfSuccessful: true
-        }
+      archiveArtifacts artifacts: 'build.properties', onlyIfSuccessful: true
     }
 }
