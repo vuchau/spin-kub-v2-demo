@@ -21,9 +21,10 @@ node {
     }
     stage('Building image') {
       sh 'printenv'
-      script {
-        dockerImage = docker.build registry + ":$BRANCH_NAME"
-      }
+      // script {
+      //   dockerImage = docker.build registry + ":$BRANCH_NAME"
+      // }
+      dockerImage = docker.build(registry + ":$BRANCH_NAME")
     }
     stage('Deploy Image') {
         script {
