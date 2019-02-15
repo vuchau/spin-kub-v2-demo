@@ -24,7 +24,7 @@ node {
       // script {
       //   dockerImage = docker.build registry + ":$BRANCH_NAME"
       // }
-      dockerImage = docker.build registry + ":$BRANCH_NAME ."
+      dockerImage = docker.build registry
     }
     stage('Deploy Image') {
         script {
