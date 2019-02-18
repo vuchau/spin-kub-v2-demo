@@ -43,7 +43,7 @@ node {
             dockerImage.push(buildProp['version'])          
             dockerImage.push("latest")
         }
+        archiveArtifacts artifacts: 'build.properties', onlyIfSuccessful: true
       }
-      archiveArtifacts artifacts: 'build.properties', onlyIfSuccessful: true
     }
 }
