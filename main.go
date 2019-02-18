@@ -13,7 +13,7 @@ func Sum(x int, y int) int {
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Handling %+v\n", r)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(" Hello world, updated docker trigger 12347890 dev1!"))
+	w.Write([]byte(" Hello world update"))
 }
 
 func main() {
