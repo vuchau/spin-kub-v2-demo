@@ -13,7 +13,7 @@ func Sum(x int, y int) int {
 func index(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Handling %+v\n", r)
 	w.WriteHeader(http.StatusOK)
-	w.Write([]byte(" Hello world update"))
+	w.Write([]byte(" Hello world v1.2"))
 }
 func ping(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
