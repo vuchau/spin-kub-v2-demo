@@ -1,19 +1,27 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: helloworld-config
   namespace: default
+  name: helloworld-config
+  labels:
+    name: env
+    environment: development
 data:
-  NEW_FEATURE: "true"
----
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: "5432"
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_DB: practice
 
-apiVersion: apps/v1beta2
+---
+apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: helloworld
   namespace: default
   labels:
     app: helloworld
+    environment: development
 spec:
   replicas: 1
   selector:
@@ -39,12 +47,14 @@ spec:
             name: helloworld-config
 
 ---
-
 kind: Service
 apiVersion: v1
 metadata:
   name: helloworld
   namespace: default
+  labels:
+    app: helloworld
+    environment: development
 spec:
   selector:
     app: helloworld

@@ -15,9 +15,14 @@ func index(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(" Hello world update"))
 }
+func ping(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte("pong"))
+}
 
 func main() {
 	http.HandleFunc("/", index)
+	http.HandleFunc("/ping", ping)
 	port := ":8000"
 	fmt.Printf("Starting to service on port %s\n", port)
 	http.ListenAndServe(port, nil)
